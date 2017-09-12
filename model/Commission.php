@@ -12,21 +12,13 @@ class Commission
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      *
      * @var int
      */
-    public $year;
+    public $id;
 
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     *
-     * @var int
-     */
-    public $month;
-
-    /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Merchant")
      * @ORM\JoinColumn(name="merchantId", nullable=false)
      *
