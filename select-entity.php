@@ -4,7 +4,7 @@ use DoctrineBug\Model;
 
 $em = require __DIR__ . '/em.php';
 
-$results = $em->createQueryBuilder()
+$query = $em->createQueryBuilder()
     ->select('n AS network', 'm.currencyCode', 'SUM(c.amount) AS amount')
     ->from(Model\Network::class, 'n')
     ->join(Model\Merchant::class, 'm', 'WITH' ,'m.network = n')
@@ -13,12 +13,25 @@ $results = $em->createQueryBuilder()
     ->addGroupBy('m.currencyCode')
     ->orderBy('n.name')
     ->addOrderBy('m.currencyCode')
-    ->getQuery()
-    ->getArrayResult();
+    ->getQuery();
 
-foreach ($results as $result) {
+echo $query->getDQL() . "\n\n";
+
+echo "HYDRATE_ARRAY:\n";
+
+foreach ($query->getArrayResult() as $result) {
     printf("Network=%d, currency=%s, amount=%d\n",
         $result['network']['id'],
+        $result['currencyCode'],
+        $result['amount']
+    );
+}
+
+echo "\nHYDRATE_OBJECT:\n";
+
+foreach ($query->getResult() as $result) {
+    printf("Network=%d, currency=%s, amount=%d\n",
+        $result['network']->id,
         $result['currencyCode'],
         $result['amount']
     );

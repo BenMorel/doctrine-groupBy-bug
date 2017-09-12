@@ -4,8 +4,8 @@ use DoctrineBug\Model;
 
 $em = require __DIR__ . '/em.php';
 
-$results = $em->createQueryBuilder()
-    ->select('n AS network', 'm.currencyCode', 'SUM(c.amount) AS amount')
+$query = $em->createQueryBuilder()
+    ->select('n.id AS networkId', 'm.currencyCode', 'SUM(c.amount) AS amount')
     ->from(Model\Network::class, 'n')
     ->join(Model\Merchant::class, 'm', 'WITH' ,'m.network = n')
     ->join(Model\Commission::class,'c', 'WITH', 'c.merchant = m')
@@ -13,12 +13,13 @@ $results = $em->createQueryBuilder()
     ->addGroupBy('m.currencyCode')
     ->orderBy('n.name')
     ->addOrderBy('m.currencyCode')
-    ->getQuery()
-    ->getResult();
+    ->getQuery();
 
-foreach ($results as $result) {
+echo $query->getDQL() . "\n\n";
+
+foreach ($query->getResult() as $result) {
     printf("Network=%d, currency=%s, amount=%d\n",
-        $result['network']->id,
+        $result['networkId'],
         $result['currencyCode'],
         $result['amount']
     );
