@@ -15,7 +15,7 @@ class Commission
      *
      * @var int
      */
-    private $year;
+    public $year;
 
     /**
      * @ORM\Id
@@ -23,7 +23,7 @@ class Commission
      *
      * @var int
      */
-    private $month;
+    public $month;
 
     /**
      * @ORM\Id
@@ -32,12 +32,12 @@ class Commission
      *
      * @var Merchant
      */
-    private $merchant;
+    public $merchant;
 
     /**
      * @ORM\Column(type="integer")
      *
      * @var int
      */
-    private $amount;
+    public $amount;
 }

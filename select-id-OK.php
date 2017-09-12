@@ -5,7 +5,7 @@ use DoctrineBug\Model;
 $em = require __DIR__ . '/em.php';
 
 $results = $em->createQueryBuilder()
-    ->select('n.id AS network', 'm.currencyCode', 'SUM(c.amount) AS amount')
+    ->select('n.id AS networkId', 'm.currencyCode', 'SUM(c.amount) AS amount')
     ->from(Model\Network::class, 'n')
     ->join(Model\Merchant::class, 'm', 'WITH' ,'m.network = n')
     ->join(Model\Commission::class,'c', 'WITH', 'c.merchant = m')
@@ -16,4 +16,10 @@ $results = $em->createQueryBuilder()
     ->getQuery()
     ->getResult();
 
-print_r($results);
+foreach ($results as $result) {
+    printf("Network=%d, currency=%s, amount=%d\n",
+        $result['networkId'],
+        $result['currencyCode'],
+        $result['amount']
+    );
+}

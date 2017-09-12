@@ -16,12 +16,12 @@ class Network
      *
      * @var int
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
-    private $name;
+    public $name;
 }

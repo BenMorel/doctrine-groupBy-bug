@@ -16,7 +16,7 @@ class Merchant
      *
      * @var int
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Network")
@@ -24,19 +24,19 @@ class Merchant
      *
      * @var Merchant
      */
-    private $network;
+    public $network;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
-    private $currencyCode;
+    public $currencyCode;
 }

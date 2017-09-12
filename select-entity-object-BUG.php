@@ -16,4 +16,10 @@ $results = $em->createQueryBuilder()
     ->getQuery()
     ->getResult();
 
-print_r($results);
+foreach ($results as $result) {
+    printf("Network=%d, currency=%s, amount=%d\n",
+        $result['network']->id,
+        $result['currencyCode'],
+        $result['amount']
+    );
+}
